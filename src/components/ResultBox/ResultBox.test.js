@@ -52,4 +52,22 @@ describe('Component ResultBox', () => {
       cleanup();
     }
   });
+  it('should return the same value', () => {
+    const testCases = [
+      { amount: 10, rate: 'PLN', expected: 'PLN 10.00 = PLN 10.00' },
+      { amount: 100, rate: 'USD', expected: '$100.00 = $100.00' },
+    ];
+    for (const testObj of testCases) {
+      render(
+        <ResultBox
+          from={testObj.rate}
+          to={testObj.rate}
+          amount={testObj.amount}
+        />
+      );
+      const container = screen.getByTestId('container');
+      expect(container).toHaveTextContent(testObj.expected);
+      cleanup();
+    }
+  });
 });
