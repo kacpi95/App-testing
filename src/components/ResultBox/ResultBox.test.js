@@ -29,4 +29,27 @@ describe('Component ResultBox', () => {
       cleanup();
     }
   });
+  it('should render proper info about conversion when USD -> PLN', () => {
+    render(<ResultBox from='USD' to='PLN' amount={100} />);
+
+    const container = screen.getByTestId('container');
+
+    expect(container).toHaveTextContent('$100.00 = PLN 350.00');
+  });
+  it('should work for multiple test USD -> PLN', () => {
+    const testCase = [
+      { amount: 10, expected: '$10.00 = PLN 35.00' },
+      { amount: 20, expected: '$20.00 = PLN 70.00' },
+      { amount: 50, expected: '$50.00 = PLN 175.00' },
+    ];
+
+    for (const testOb of testCase) {
+      render(<ResultBox from='USD' to='PLN' amount={testOb.amount} />);
+
+      const container = screen.getByTestId('container');
+
+      expect(container).toHaveTextContent(testOb.expected);
+      cleanup();
+    }
+  });
 });
