@@ -70,4 +70,9 @@ describe('Component ResultBox', () => {
       cleanup();
     }
   });
+  it('should not render anything', () => {
+    render(<ResultBox from='PLN' to='USD' amount={-1} />);
+    const containerError = screen.getByTestId('containerError');
+    expect(containerError).toHaveTextContent('Error value');
+  });
 });
